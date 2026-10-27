@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Ashford School Christmas Fair 2026 | Great Chart Site | 29th November 12:00-4:00pm',
+  description = 'Join us for the Ashford School Christmas Fair 2026 on Saturday 29th November, 12:00 pm - 4:00 pm at the Great Chart Site. Festive fun, stalls, Santa\'s Grotto, performances and more.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={Astro.url} />
+    <meta name="theme-color" content="#16294A" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content="Ashford School Christmas Fair 2026" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

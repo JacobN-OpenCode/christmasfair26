@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { independentStalls, schoolPFASstalls } from '../data/fairData';
+---
+
+<BaseLayout title="Stalls Directory | Ashford School Christmas Fair 2026">
+  <Navbar />
+  
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">Stall Directory</h1>
+        <p class="page-subtitle">Handmade gifts, crafts, treats and more</p>
+      </div>
+    </section>
+    
+    <section class="stalls-section">
+      <div class="container">
+        <div class="search-box">
+          <input type="text" id="stallSearch" class="search-input" placeholder="Search stalls..." aria-label="Search stalls">
+        </div>
+        
+        <div class="stall-categories">
+          <section class="category-section">
+            <h2 class="category-title">
+              <span class="category-icon">🛍️</span>
+              Independent Stallholders
+            </h2>
+            <div class="stalls-grid" id="independentStalls">
+              {independentStalls.map(stall => (
+                <div class="stall-card" data-name={stall.toLowerCase()}>
+                  <h3>{stall}</h3>
+                </div>
+              ))}
+            </div>
+          </section>
+          
+          <section class="category-section">
+            <h2 class="category-title">
+              <span class="category-icon">🏫</span>
+              School & PFA Stalls
+            </h2>
+            <div class="stalls-grid" id="schoolStalls">
+              {schoolPFASstalls.map(stall => (
+                <div class="stall-card" data-name={stall.toLowerCase()}>
+                  <h3>{stall}</h3>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('stallSearch');
+  const stallCards = document.querySelectorAll('.stall-card');
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      
+      stallCards.forEach(card => {
+        const stallName = card.getAttribute('data-name') || '';
+        if (stallName.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1f3a 100%);
+    color: var(--white);
+    padding: 3rem 0 2rem;
+    text-align: center;
+  }
+  
+  .page-title {
+    color: var(--white);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  .stalls-section {
+    padding: 2.5rem 0 4rem;
+  }
+  
+  .search-box {
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    border: 2px solid var(--subtle-border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text-primary);
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: var(--navy);
+  }
+  
+  .category-section {
+    margin-bottom: 3rem;
+  }
+  
+  .category-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--subtle-border);
+  }
+  
+  .category-icon {
+    font-size: 1.5rem;
+  }
+  
+  .stalls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  
+  .stall-card {
+    background: var(--surface);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--subtle-border);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 4px rgba(22, 41, 74, 0.04);
+  }
+  
+  .stall-card:hover {
+    border-color: var(--evergreen);
+    box-shadow: 0 2px 8px rgba(35, 99, 75, 0.1);
+    transform: translateX(4px);
+  }
+  
+  .stall-card h3 {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  @media (max-width: 640px) {
+    .stalls-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .category-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

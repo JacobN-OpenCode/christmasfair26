@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { eventInfo, keyLocations, safetyInfo } from '../data/fairData';
+---
+
+<BaseLayout title="Visitor Information | Ashford School Christmas Fair 2026">
+  <Navbar />
+  
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">Visitor Information</h1>
+        <p class="page-subtitle">Everything you need to know for your visit</p>
+      </div>
+    </section>
+    
+    <section class="info-section">
+      <div class="container">
+        <div class="info-grid">
+          <div class="info-card main-info">
+            <h2>Event Details</h2>
+            <div class="detail-item">
+              <strong>📅 Date:</strong> {eventInfo.date}
+            </div>
+            <div class="detail-item">
+              <strong>🕐 Time:</strong> {eventInfo.time}
+            </div>
+            <div class="detail-item">
+              <strong>📍 Location:</strong> {eventInfo.location}
+            </div>
+            <div class="detail-item">
+              <strong>🏫 School:</strong> {eventInfo.schoolName}
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <h2>Key Locations</h2>
+            <ul class="location-list">
+              {keyLocations.map(loc => (
+                <li>
+                  <strong>{loc.name}</strong><br />
+                  <span class="location-detail">{loc.location}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          <div class="info-card">
+            <h2>Getting Here</h2>
+            <p><strong>Address:</strong> Ashford School, Great Chart Site</p>
+            <p><strong>Parking:</strong> Front of school (drop off area) for Fairground Rides. Please follow on-site directions on the day.</p>
+          </div>
+          
+          <div class="info-card">
+            <h2>Facilities</h2>
+            <ul>
+              <li>Nordic Café in Friars Hall (hot food, cakes, refreshments)</li>
+              <li>Santa's Grotto (pre-booked slots)</li>
+              <li>Fairground rides</li>
+              <li>Christingle Room (proceeds to The Children's Society)</li>
+              <li>Raffle & Tombola at Main Reception</li>
+              <li>Horse Box Mulled wine & Baileys Hot Chocolate (location TBC)</li>
+            </ul>
+          </div>
+          
+          <div class="info-card">
+            <h2>Payment</h2>
+            <p>Stallholders may accept cash and card payments. Please check with individual stalls on the day.</p>
+            <p>Raffle tickets can be purchased from reception on the day (£1 everyday, £5 super).</p>
+          </div>
+          
+          <div class="info-card safety-card">
+            <h2>🚨 {safetyInfo.title}</h2>
+            <p>{safetyInfo.content}</p>
+          </div>
+          
+          <div class="info-card">
+            <h2>Contact Us</h2>
+            <p><strong>Email:</strong> <a href={`mailto:${eventInfo.pfaEmail}`}>{eventInfo.pfaEmail}</a></p>
+            <p><strong>Instagram:</strong> {eventInfo.pfaInstagram} {eventInfo.instagramTbd && <em>(To be confirmed)</em>}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1f3a 100%);
+    color: var(--white);
+    padding: 3rem 0 2rem;
+    text-align: center;
+  }
+  
+  .page-title {
+    color: var(--white);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  .info-section {
+    padding: 2.5rem 0 4rem;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .info-card {
+    background: var(--surface);
+    padding: 1.75rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--subtle-border);
+    box-shadow: 0 2px 8px rgba(22, 41, 74, 0.04);
+  }
+  
+  .info-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--navy);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--subtle-border);
+  }
+  
+  .main-info {
+    background: linear-gradient(135deg, rgba(35, 99, 75, 0.05) 0%, var(--surface) 100%);
+    border-color: rgba(35, 99, 75, 0.3);
+  }
+  
+  .main-info h2 {
+    color: var(--evergreen);
+    border-bottom-color: rgba(35, 99, 75, 0.3);
+  }
+  
+  .safety-card {
+    background: linear-gradient(135deg, rgba(161, 24, 52, 0.05) 0%, var(--surface) 100%);
+    border-color: rgba(161, 24, 52, 0.3);
+  }
+  
+  .safety-card h2 {
+    color: var(--accent);
+    border-bottom-color: rgba(161, 24, 52, 0.3);
+  }
+  
+  .detail-item {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0;
+  }
+  
+  .location-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .location-list li {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--subtle-border);
+  }
+  
+  .location-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .location-detail {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+  
+  .info-card ul {
+    padding-left: 1.25rem;
+  }
+  
+  .info-card li {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+  
+  .info-card p {
+    margin-bottom: 0.75rem;
+  }
+  
+  .info-card a {
+    color: var(--accent);
+    font-weight: 500;
+  }
+  
+  .info-card a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 640px) {
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .info-card {
+      padding: 1.25rem;
+    }
+  }
+</style>

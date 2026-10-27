@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { raffleInfo, superRafflePrizes, everydayRafflePrizes } from '../data/fairData';
+---
+
+<BaseLayout title="Raffle | Ashford School Christmas Fair 2026">
+  <Navbar />
+  
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">Raffle</h1>
+        <p class="page-subtitle">Win amazing prizes whilst supporting our school</p>
+      </div>
+    </section>
+    
+    <section class="raffle-section">
+      <div class="container">
+        <div class="raffle-info-card">
+          <h2>Raffle Details</h2>
+          <div class="raffle-details">
+            <div class="raffle-detail">
+              <strong>🎟️ Everyday Raffle:</strong> {raffleInfo.tickets.everyday.price}
+            </div>
+            <div class="raffle-detail">
+              <strong>⭐ Super Raffle:</strong> {raffleInfo.tickets.super.price} (Only {raffleInfo.tickets.super.limit} tickets)
+            </div>
+            <div class="raffle-detail">
+              <strong>🛒 Purchase:</strong> {raffleInfo.purchase}
+            </div>
+            <div class="raffle-detail">
+              <strong>⏰ Draw Time:</strong> {raffleInfo.drawTime}
+            </div>
+            <div class="raffle-detail">
+              <strong>🎉 Draw:</strong> {raffleInfo.drawDescription}
+            </div>
+          </div>
+        </div>
+        
+        <div class="prizes-section">
+          <div class="prize-category super-prizes">
+            <h2 class="prize-category-title">⭐ Super Raffle Prizes</h2>
+            <p class="prize-category-subtitle">£5 per ticket - Limited to {raffleInfo.tickets.super.limit} tickets</p>
+            <ol class="prize-list">
+              {superRafflePrizes.map((prize, index) => (
+                <li key={index}>{prize}</li>
+              ))}
+            </ol>
+          </div>
+          
+          <div class="prize-category everyday-prizes">
+            <h2 class="prize-category-title">🎟️ Everyday Raffle Prizes</h2>
+            <p class="prize-category-subtitle">£1 per ticket</p>
+            <p class="prizes-thanks">Donated with our sincere thanks to the following:</p>
+            <ul class="prize-list-grid">
+              {everydayRafflePrizes.map((prize, index) => (
+                <li key={index}>{prize}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #0f1f3a 100%);
+    color: var(--white);
+    padding: 3rem 0 2rem;
+    text-align: center;
+  }
+  
+  .page-title {
+    color: var(--white);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  .raffle-section {
+    padding: 2.5rem 0 4rem;
+  }
+  
+  .raffle-info-card {
+    background: linear-gradient(135deg, rgba(212, 173, 114, 0.15) 0%, var(--surface) 100%);
+    border: 2px solid var(--gold);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .raffle-info-card h2 {
+    color: var(--navy);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .raffle-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .raffle-detail {
+    padding: 0.625rem 0;
+    border-bottom: 1px solid rgba(212, 173, 114, 0.4);
+    color: var(--text-primary);
+  }
+  
+  .raffle-detail:last-child {
+    border-bottom: none;
+  }
+  
+  .prizes-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .prize-category {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 1px solid var(--subtle-border);
+  }
+  
+  .super-prizes {
+    border: 2px solid var(--gold);
+    background: linear-gradient(to bottom, rgba(212, 173, 114, 0.08) 0%, var(--surface) 100%);
+  }
+  
+  .prize-category-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.375rem;
+    color: var(--navy);
+  }
+  
+  .super-prizes .prize-category-title {
+    color: #b8860b;
+  }
+  
+  .prize-category-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    font-style: italic;
+  }
+  
+  .prizes-thanks {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  
+  .prize-list {
+    padding-left: 1.5rem;
+  }
+  
+  .prize-list li {
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+  
+  .prize-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem 1.5rem;
+    padding-left: 1.25rem;
+  }
+  
+  .prize-list-grid li {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    margin-bottom: 0.375rem;
+  }
+  
+  @media (max-width: 640px) {
+    .raffle-info-card,
+    .prize-category {
+      padding: 1.25rem;
+    }
+    
+    .prize-list-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
